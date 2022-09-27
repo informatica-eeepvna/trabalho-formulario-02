@@ -9,4 +9,5 @@
 ## 5. Entrar no diretório */templates*
 ## 6. Copiar seu arquivo renomeado e colar no diretório
 ## 7. Fazer o push da branch
+## 8. Fazer um **pull request** no repositório principal
 ## **Obs.: Não modifique os demais arquivos**
