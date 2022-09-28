@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+</head>
+
+<body>
+  <form class="container">
+
+    <div class="container form-control mt-5">
+      <div class="bg-success text-white mu-4">
+        <center>
+          <h1>Formulário de Cadastro</h1>
+        </center>
+      </div>
+      <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"><strong>Primeiro Nome</strong> </label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="Primeiro Nome">
+
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"><strong>Sobrenome</strong></label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Sobrenome">
+        </div>
+
+      </form>
+      <label for=""><strong>Sexo</strong> </label> <br>
+
+      <div class="form-check form-check-inline mt-3">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+        <label class="form-check-label" for="flexRadioDefault1">
+          <strong>
+            Masculino
+          </strong>
+        </label>
+
+      </div>
+      <div class=" form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+          <strong> Feminino </strong>
+        </label>
+      </div>
+      <form class="row g-3 mt-3">
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label"><strong>CPF</strong></label>
+          <input type="number" class="form-control" id="inputEmail4" placeholder="123.456.789-00">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label"><strong>RG/Passport</strong> </label>
+          <input type="number" class="form-control" id="inputPassword4" placeholder="12 345 678-9">
+        </div>
+      </form>
+      <div class="mb-3 mt-4">
+        <label for="formGroupExampleInput" class="form-label"><strong>E-mail</strong> </label>
+        <input type="email" class="form-control" id="formGroupExampleInput" placeholder="seu@email.com">
+      </div>
+      <div class="mb-3 mt-4">
+        <label for="formGroupExampleInput" class="form-label"><strong>Celular com DDD</strong> </label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="(00) 0000-0000">
+      </div>
+      <form class="row g-3 mt-3">
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label"><strong>Senha</strong> </label>
+          <input type="password" class="form-control" id="inputEmail4" placeholder="Senha" required>
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label"><strong>Repita</strong> </label>
+          <input type="password" class="form-control" id="inputPassword4" placeholder="Senha" required>
+        </div>
+      </form>
+      <center>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Enviar
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar Cadastro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                confirme seus dados antes do envio
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fechar</button>
+                <button type="submit" class="btn btn-success">confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </center>
+
+    </div>
+  </form>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</html>
