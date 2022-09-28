@@ -17,7 +17,7 @@ const TRANSITION_END = 'transitionend'; // Shout-out Angus Croll (https://goo.gl
 
 const toType = object => {
   if (object === null || object === undefined) {
-    return `${object}`;
+    return <code>${object}<code>;
   }
 
   return Object.prototype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
@@ -40,8 +40,8 @@ const getSelector = element => {
 
   if (!selector || selector === '#') {
     let hrefAttribute = element.getAttribute('href'); // The only valid content that could double as a selector are IDs or classes,
-    // so everything starting with `#` or `.`. If a "real" URL is used as the selector,
-    // `document.querySelector` will rightfully complain it is invalid.
+    // so everything starting with <code>#<code> or <code>.<code>. If a "real" URL is used as the selector,
+    // <code>document.querySelector<code> will rightfully complain it is invalid.
     // See https://github.com/twbs/bootstrap/issues/32273
 
     if (!hrefAttribute || !hrefAttribute.includes('#') && !hrefAttribute.startsWith('.')) {
@@ -50,7 +50,7 @@ const getSelector = element => {
 
 
     if (hrefAttribute.includes('#') && !hrefAttribute.startsWith('#')) {
-      hrefAttribute = `#${hrefAttribute.split('#')[1]}`;
+      hrefAttribute = <code>#${hrefAttribute.split('#')[1]}<code>;
     }
 
     selector = hrefAttribute && hrefAttribute !== '#' ? hrefAttribute.trim() : null;
@@ -131,7 +131,7 @@ const isVisible = element => {
     return false;
   }
 
-  const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible'; // Handle `details` element as its content may falsie appear visible when it is closed
+  const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible'; // Handle <code>details<code> element as its content may falsie appear visible when it is closed
 
   const closedDetails = element.closest('details:not([open])');
 
@@ -346,7 +346,7 @@ const nativeEvents = new Set(['click', 'dblclick', 'mouseup', 'mousedown', 'cont
  */
 
 function makeEventUid(element, uid) {
-  return uid && `${uid}::${uidEvent++}` || element.uidEvent || uidEvent++;
+  return uid && <code>${uid}::${uidEvent++}<code> || element.uidEvent || uidEvent++;
 }
 
 function getElementEvents(element) {
@@ -401,7 +401,7 @@ function findHandler(events, callable, delegationSelector = null) {
 }
 
 function normalizeParameters(originalTypeEvent, handler, delegationFunction) {
-  const isDelegated = typeof handler === 'string'; // todo: tooltip passes `false` instead of selector, so we need to check
+  const isDelegated = typeof handler === 'string'; // todo: tooltip passes <code>false<code> instead of selector, so we need to check
 
   const callable = isDelegated ? delegationFunction : handler || delegationFunction;
   let typeEvent = getTypeEvent(originalTypeEvent);
@@ -611,7 +611,7 @@ const Data = {
 
     if (!instanceMap.has(key) && instanceMap.size !== 0) {
       // eslint-disable-next-line no-console
-      console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
+      console.error(<code>Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.<code>);
       return;
     }
 
@@ -676,16 +676,16 @@ function normalizeData(value) {
 }
 
 function normalizeDataKey(key) {
-  return key.replace(/[A-Z]/g, chr => `-${chr.toLowerCase()}`);
+  return key.replace(/[A-Z]/g, chr => <code>-${chr.toLowerCase()}<code>);
 }
 
 const Manipulator = {
   setDataAttribute(element, key, value) {
-    element.setAttribute(`data-bs-${normalizeDataKey(key)}`, value);
+    element.setAttribute(<code>data-bs-${normalizeDataKey(key)}<code>, value);
   },
 
   removeDataAttribute(element, key) {
-    element.removeAttribute(`data-bs-${normalizeDataKey(key)}`);
+    element.removeAttribute(<code>data-bs-${normalizeDataKey(key)}<code>);
   },
 
   getDataAttributes(element) {
@@ -706,7 +706,7 @@ const Manipulator = {
   },
 
   getDataAttribute(element, key) {
-    return normalizeData(element.getAttribute(`data-bs-${normalizeDataKey(key)}`));
+    return normalizeData(element.getAttribute(<code>data-bs-${normalizeDataKey(key)}<code>));
   }
 
 };
@@ -765,7 +765,7 @@ class Config {
       const valueType = isElement(value) ? 'element' : toType(value);
 
       if (!new RegExp(expectedTypes).test(valueType)) {
-        throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
+        throw new TypeError(<code>${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".<code>);
       }
     }
   }
@@ -838,15 +838,15 @@ class BaseComponent extends Config {
   }
 
   static get DATA_KEY() {
-    return `bs.${this.NAME}`;
+    return <code>bs.${this.NAME}<code>;
   }
 
   static get EVENT_KEY() {
-    return `.${this.DATA_KEY}`;
+    return <code>.${this.DATA_KEY}<code>;
   }
 
   static eventName(name) {
-    return `${name}${this.EVENT_KEY}`;
+    return <code>${name}${this.EVENT_KEY}<code>;
   }
 
 }
@@ -859,9 +859,9 @@ class BaseComponent extends Config {
  */
 
 const enableDismissTrigger = (component, method = 'hide') => {
-  const clickEvent = `click.dismiss${component.EVENT_KEY}`;
+  const clickEvent = <code>click.dismiss${component.EVENT_KEY}<code>;
   const name = component.NAME;
-  EventHandler.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
+  EventHandler.on(document, clickEvent, <code>[data-bs-dismiss="${name}"]<code>, function (event) {
     if (['A', 'AREA'].includes(this.tagName)) {
       event.preventDefault();
     }
@@ -870,7 +870,7 @@ const enableDismissTrigger = (component, method = 'hide') => {
       return;
     }
 
-    const target = getElementFromSelector(this) || this.closest(`.${name}`);
+    const target = getElementFromSelector(this) || this.closest(<code>.${name}<code>);
     const instance = component.getOrCreateInstance(target); // Method argument is left, for Alert and only, as it doesn't implement the 'hide' method
 
     instance[method]();
@@ -889,9 +889,9 @@ const enableDismissTrigger = (component, method = 'hide') => {
 
 const NAME$f = 'alert';
 const DATA_KEY$a = 'bs.alert';
-const EVENT_KEY$b = `.${DATA_KEY$a}`;
-const EVENT_CLOSE = `close${EVENT_KEY$b}`;
-const EVENT_CLOSED = `closed${EVENT_KEY$b}`;
+const EVENT_KEY$b = <code>.${DATA_KEY$a}<code>;
+const EVENT_CLOSE = <code>close${EVENT_KEY$b}<code>;
+const EVENT_CLOSED = <code>closed${EVENT_KEY$b}<code>;
 const CLASS_NAME_FADE$5 = 'fade';
 const CLASS_NAME_SHOW$8 = 'show';
 /**
@@ -937,7 +937,7 @@ class Alert extends BaseComponent {
       }
 
       if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`);
+        throw new TypeError(<code>No method named "${config}"<code>);
       }
 
       data[config](this);
@@ -969,11 +969,11 @@ defineJQueryPlugin(Alert);
 
 const NAME$e = 'button';
 const DATA_KEY$9 = 'bs.button';
-const EVENT_KEY$a = `.${DATA_KEY$9}`;
+const EVENT_KEY$a = <code>.${DATA_KEY$9}<code>;
 const DATA_API_KEY$6 = '.data-api';
 const CLASS_NAME_ACTIVE$3 = 'active';
 const SELECTOR_DATA_TOGGLE$5 = '[data-bs-toggle="button"]';
-const EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$a}${DATA_API_KEY$6}`;
+const EVENT_CLICK_DATA_API$6 = <code>click${EVENT_KEY$a}${DATA_API_KEY$6}<code>;
 /**
  * Class definition
  */
@@ -986,7 +986,7 @@ class Button extends BaseComponent {
 
 
   toggle() {
-    // Toggle class and sync the `aria-pressed` attribute with the return value of the `.toggle()` method
+    // Toggle class and sync the <code>aria-pressed<code> attribute with the return value of the <code>.toggle()<code> method
     this._element.setAttribute('aria-pressed', this._element.classList.toggle(CLASS_NAME_ACTIVE$3));
   } // Static
 
@@ -1084,7 +1084,7 @@ const SelectorEngine = {
   },
 
   focusableChildren(element) {
-    const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(',');
+    const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => <code>${selector}:not([tabindex^="-"])<code>).join(',');
     return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
   }
 
@@ -1102,11 +1102,11 @@ const SelectorEngine = {
 
 const NAME$d = 'swipe';
 const EVENT_KEY$9 = '.bs.swipe';
-const EVENT_TOUCHSTART = `touchstart${EVENT_KEY$9}`;
-const EVENT_TOUCHMOVE = `touchmove${EVENT_KEY$9}`;
-const EVENT_TOUCHEND = `touchend${EVENT_KEY$9}`;
-const EVENT_POINTERDOWN = `pointerdown${EVENT_KEY$9}`;
-const EVENT_POINTERUP = `pointerup${EVENT_KEY$9}`;
+const EVENT_TOUCHSTART = <code>touchstart${EVENT_KEY$9}<code>;
+const EVENT_TOUCHMOVE = <code>touchmove${EVENT_KEY$9}<code>;
+const EVENT_TOUCHEND = <code>touchend${EVENT_KEY$9}<code>;
+const EVENT_POINTERDOWN = <code>pointerdown${EVENT_KEY$9}<code>;
+const EVENT_POINTERUP = <code>pointerup${EVENT_KEY$9}<code>;
 const POINTER_TYPE_TOUCH = 'touch';
 const POINTER_TYPE_PEN = 'pen';
 const CLASS_NAME_POINTER_EVENT = 'pointer-event';
@@ -1238,7 +1238,7 @@ class Swipe extends Config {
 
 const NAME$c = 'carousel';
 const DATA_KEY$8 = 'bs.carousel';
-const EVENT_KEY$8 = `.${DATA_KEY$8}`;
+const EVENT_KEY$8 = <code>.${DATA_KEY$8}<code>;
 const DATA_API_KEY$5 = '.data-api';
 const ARROW_LEFT_KEY$1 = 'ArrowLeft';
 const ARROW_RIGHT_KEY$1 = 'ArrowRight';
@@ -1248,14 +1248,14 @@ const ORDER_NEXT = 'next';
 const ORDER_PREV = 'prev';
 const DIRECTION_LEFT = 'left';
 const DIRECTION_RIGHT = 'right';
-const EVENT_SLIDE = `slide${EVENT_KEY$8}`;
-const EVENT_SLID = `slid${EVENT_KEY$8}`;
-const EVENT_KEYDOWN$1 = `keydown${EVENT_KEY$8}`;
-const EVENT_MOUSEENTER$1 = `mouseenter${EVENT_KEY$8}`;
-const EVENT_MOUSELEAVE$1 = `mouseleave${EVENT_KEY$8}`;
-const EVENT_DRAG_START = `dragstart${EVENT_KEY$8}`;
-const EVENT_LOAD_DATA_API$3 = `load${EVENT_KEY$8}${DATA_API_KEY$5}`;
-const EVENT_CLICK_DATA_API$5 = `click${EVENT_KEY$8}${DATA_API_KEY$5}`;
+const EVENT_SLIDE = <code>slide${EVENT_KEY$8}<code>;
+const EVENT_SLID = <code>slid${EVENT_KEY$8}<code>;
+const EVENT_KEYDOWN$1 = <code>keydown${EVENT_KEY$8}<code>;
+const EVENT_MOUSEENTER$1 = <code>mouseenter${EVENT_KEY$8}<code>;
+const EVENT_MOUSELEAVE$1 = <code>mouseleave${EVENT_KEY$8}<code>;
+const EVENT_DRAG_START = <code>dragstart${EVENT_KEY$8}<code>;
+const EVENT_LOAD_DATA_API$3 = <code>load${EVENT_KEY$8}${DATA_API_KEY$5}<code>;
+const EVENT_CLICK_DATA_API$5 = <code>click${EVENT_KEY$8}${DATA_API_KEY$5}<code>;
 const CLASS_NAME_CAROUSEL = 'carousel';
 const CLASS_NAME_ACTIVE$2 = 'active';
 const CLASS_NAME_SLIDE = 'slide';
@@ -1331,7 +1331,7 @@ class Carousel extends BaseComponent {
   }
 
   nextWhenVisible() {
-    // FIXME TODO use `document.visibilityState`
+    // FIXME TODO use <code>document.visibilityState<code>
     // Don't call next when the page isn't visible
     // or the carousel or its parent isn't visible
     if (!document.hidden && isVisible(this._element)) {
@@ -1484,7 +1484,7 @@ class Carousel extends BaseComponent {
     const activeIndicator = SelectorEngine.findOne(SELECTOR_ACTIVE, this._indicatorsElement);
     activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
     activeIndicator.removeAttribute('aria-current');
-    const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${index}"]`, this._indicatorsElement);
+    const newActiveIndicator = SelectorEngine.findOne(<code>[data-bs-slide-to="${index}"]<code>, this._indicatorsElement);
 
     if (newActiveIndicator) {
       newActiveIndicator.classList.add(CLASS_NAME_ACTIVE$2);
@@ -1616,7 +1616,7 @@ class Carousel extends BaseComponent {
 
       if (typeof config === 'string') {
         if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-          throw new TypeError(`No method named "${config}"`);
+          throw new TypeError(<code>No method named "${config}"<code>);
         }
 
         data[config]();
@@ -1686,18 +1686,18 @@ defineJQueryPlugin(Carousel);
 
 const NAME$b = 'collapse';
 const DATA_KEY$7 = 'bs.collapse';
-const EVENT_KEY$7 = `.${DATA_KEY$7}`;
+const EVENT_KEY$7 = <code>.${DATA_KEY$7}<code>;
 const DATA_API_KEY$4 = '.data-api';
-const EVENT_SHOW$6 = `show${EVENT_KEY$7}`;
-const EVENT_SHOWN$6 = `shown${EVENT_KEY$7}`;
-const EVENT_HIDE$6 = `hide${EVENT_KEY$7}`;
-const EVENT_HIDDEN$6 = `hidden${EVENT_KEY$7}`;
-const EVENT_CLICK_DATA_API$4 = `click${EVENT_KEY$7}${DATA_API_KEY$4}`;
+const EVENT_SHOW$6 = <code>show${EVENT_KEY$7}<code>;
+const EVENT_SHOWN$6 = <code>shown${EVENT_KEY$7}<code>;
+const EVENT_HIDE$6 = <code>hide${EVENT_KEY$7}<code>;
+const EVENT_HIDDEN$6 = <code>hidden${EVENT_KEY$7}<code>;
+const EVENT_CLICK_DATA_API$4 = <code>click${EVENT_KEY$7}${DATA_API_KEY$4}<code>;
 const CLASS_NAME_SHOW$7 = 'show';
 const CLASS_NAME_COLLAPSE = 'collapse';
 const CLASS_NAME_COLLAPSING = 'collapsing';
 const CLASS_NAME_COLLAPSED = 'collapsed';
-const CLASS_NAME_DEEPER_CHILDREN = `:scope .${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`;
+const CLASS_NAME_DEEPER_CHILDREN = <code>:scope .${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}<code>;
 const CLASS_NAME_HORIZONTAL = 'collapse-horizontal';
 const WIDTH = 'width';
 const HEIGHT = 'height';
@@ -1815,11 +1815,11 @@ class Collapse extends BaseComponent {
     };
 
     const capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
-    const scrollSize = `scroll${capitalizedDimension}`;
+    const scrollSize = <code>scroll${capitalizedDimension}<code>;
 
     this._queueCallback(complete, this._element, true);
 
-    this._element.style[dimension] = `${this._element[scrollSize]}px`;
+    this._element.style[dimension] = <code>${this._element[scrollSize]}px<code>;
   }
 
   hide() {
@@ -1835,7 +1835,7 @@ class Collapse extends BaseComponent {
 
     const dimension = this._getDimension();
 
-    this._element.style[dimension] = `${this._element.getBoundingClientRect()[dimension]}px`;
+    this._element.style[dimension] = <code>${this._element.getBoundingClientRect()[dimension]}px<code>;
     reflow(this._element);
 
     this._element.classList.add(CLASS_NAME_COLLAPSING);
@@ -1929,7 +1929,7 @@ class Collapse extends BaseComponent {
 
       if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
-          throw new TypeError(`No method named "${config}"`);
+          throw new TypeError(<code>No method named "${config}"<code>);
         }
 
         data[config]();
@@ -1976,7 +1976,7 @@ defineJQueryPlugin(Collapse);
 
 const NAME$a = 'dropdown';
 const DATA_KEY$6 = 'bs.dropdown';
-const EVENT_KEY$6 = `.${DATA_KEY$6}`;
+const EVENT_KEY$6 = <code>.${DATA_KEY$6}<code>;
 const DATA_API_KEY$3 = '.data-api';
 const ESCAPE_KEY$2 = 'Escape';
 const TAB_KEY$1 = 'Tab';
@@ -1984,13 +1984,13 @@ const ARROW_UP_KEY$1 = 'ArrowUp';
 const ARROW_DOWN_KEY$1 = 'ArrowDown';
 const RIGHT_MOUSE_BUTTON = 2; // MouseEvent.button value for the secondary button, usually the right button
 
-const EVENT_HIDE$5 = `hide${EVENT_KEY$6}`;
-const EVENT_HIDDEN$5 = `hidden${EVENT_KEY$6}`;
-const EVENT_SHOW$5 = `show${EVENT_KEY$6}`;
-const EVENT_SHOWN$5 = `shown${EVENT_KEY$6}`;
-const EVENT_CLICK_DATA_API$3 = `click${EVENT_KEY$6}${DATA_API_KEY$3}`;
-const EVENT_KEYDOWN_DATA_API = `keydown${EVENT_KEY$6}${DATA_API_KEY$3}`;
-const EVENT_KEYUP_DATA_API = `keyup${EVENT_KEY$6}${DATA_API_KEY$3}`;
+const EVENT_HIDE$5 = <code>hide${EVENT_KEY$6}<code>;
+const EVENT_HIDDEN$5 = <code>hidden${EVENT_KEY$6}<code>;
+const EVENT_SHOW$5 = <code>show${EVENT_KEY$6}<code>;
+const EVENT_SHOWN$5 = <code>shown${EVENT_KEY$6}<code>;
+const EVENT_CLICK_DATA_API$3 = <code>click${EVENT_KEY$6}${DATA_API_KEY$3}<code>;
+const EVENT_KEYDOWN_DATA_API = <code>keydown${EVENT_KEY$6}${DATA_API_KEY$3}<code>;
+const EVENT_KEYUP_DATA_API = <code>keyup${EVENT_KEY$6}${DATA_API_KEY$3}<code>;
 const CLASS_NAME_SHOW$6 = 'show';
 const CLASS_NAME_DROPUP = 'dropup';
 const CLASS_NAME_DROPEND = 'dropend';
@@ -1998,7 +1998,7 @@ const CLASS_NAME_DROPSTART = 'dropstart';
 const CLASS_NAME_DROPUP_CENTER = 'dropup-center';
 const CLASS_NAME_DROPDOWN_CENTER = 'dropdown-center';
 const SELECTOR_DATA_TOGGLE$3 = '[data-bs-toggle="dropdown"]:not(.disabled):not(:disabled)';
-const SELECTOR_DATA_TOGGLE_SHOWN = `${SELECTOR_DATA_TOGGLE$3}.${CLASS_NAME_SHOW$6}`;
+const SELECTOR_DATA_TOGGLE_SHOWN = <code>${SELECTOR_DATA_TOGGLE$3}.${CLASS_NAME_SHOW$6}<code>;
 const SELECTOR_MENU = '.dropdown-menu';
 const SELECTOR_NAVBAR = '.navbar';
 const SELECTOR_NAVBAR_NAV = '.navbar-nav';
@@ -2160,7 +2160,7 @@ class Dropdown extends BaseComponent {
 
     if (typeof config.reference === 'object' && !isElement(config.reference) && typeof config.reference.getBoundingClientRect !== 'function') {
       // Popper virtual elements require a getBoundingClientRect method
-      throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
+      throw new TypeError(<code>${NAME$a.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.<code>);
     }
 
     return config;
@@ -2294,7 +2294,7 @@ class Dropdown extends BaseComponent {
       }
 
       if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`);
+        throw new TypeError(<code>No method named "${config}"<code>);
       }
 
       data[config]();
@@ -2472,7 +2472,7 @@ class ScrollBarHelper {
       this._saveInitialAttribute(element, styleProperty);
 
       const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
-      element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
+      element.style.setProperty(styleProperty, <code>${callback(Number.parseFloat(calculatedValue))}px<code>);
     };
 
     this._applyManipulationCallback(selector, manipulationCallBack);
@@ -2488,7 +2488,7 @@ class ScrollBarHelper {
 
   _resetElementAttributes(selector, styleProperty) {
     const manipulationCallBack = element => {
-      const value = Manipulator.getDataAttribute(element, styleProperty); // We only want to remove the property if the value is `null`; the value can also be zero
+      const value = Manipulator.getDataAttribute(element, styleProperty); // We only want to remove the property if the value is <code>null<code>; the value can also be zero
 
       if (value === null) {
         element.style.removeProperty(styleProperty);
@@ -2528,7 +2528,7 @@ class ScrollBarHelper {
 const NAME$9 = 'backdrop';
 const CLASS_NAME_FADE$4 = 'fade';
 const CLASS_NAME_SHOW$5 = 'show';
-const EVENT_MOUSEDOWN = `mousedown.bs.${NAME$9}`;
+const EVENT_MOUSEDOWN = <code>mousedown.bs.${NAME$9}<code>;
 const Default$8 = {
   className: 'modal-backdrop',
   clickCallback: null,
@@ -2673,9 +2673,9 @@ class Backdrop extends Config {
 
 const NAME$8 = 'focustrap';
 const DATA_KEY$5 = 'bs.focustrap';
-const EVENT_KEY$5 = `.${DATA_KEY$5}`;
-const EVENT_FOCUSIN$2 = `focusin${EVENT_KEY$5}`;
-const EVENT_KEYDOWN_TAB = `keydown.tab${EVENT_KEY$5}`;
+const EVENT_KEY$5 = <code>.${DATA_KEY$5}<code>;
+const EVENT_FOCUSIN$2 = <code>focusin${EVENT_KEY$5}<code>;
+const EVENT_KEYDOWN_TAB = <code>keydown.tab${EVENT_KEY$5}<code>;
 const TAB_KEY = 'Tab';
 const TAB_NAV_FORWARD = 'forward';
 const TAB_NAV_BACKWARD = 'backward';
@@ -2782,19 +2782,19 @@ class FocusTrap extends Config {
 
 const NAME$7 = 'modal';
 const DATA_KEY$4 = 'bs.modal';
-const EVENT_KEY$4 = `.${DATA_KEY$4}`;
+const EVENT_KEY$4 = <code>.${DATA_KEY$4}<code>;
 const DATA_API_KEY$2 = '.data-api';
 const ESCAPE_KEY$1 = 'Escape';
-const EVENT_HIDE$4 = `hide${EVENT_KEY$4}`;
-const EVENT_HIDE_PREVENTED$1 = `hidePrevented${EVENT_KEY$4}`;
-const EVENT_HIDDEN$4 = `hidden${EVENT_KEY$4}`;
-const EVENT_SHOW$4 = `show${EVENT_KEY$4}`;
-const EVENT_SHOWN$4 = `shown${EVENT_KEY$4}`;
-const EVENT_RESIZE$1 = `resize${EVENT_KEY$4}`;
-const EVENT_CLICK_DISMISS = `click.dismiss${EVENT_KEY$4}`;
-const EVENT_MOUSEDOWN_DISMISS = `mousedown.dismiss${EVENT_KEY$4}`;
-const EVENT_KEYDOWN_DISMISS$1 = `keydown.dismiss${EVENT_KEY$4}`;
-const EVENT_CLICK_DATA_API$2 = `click${EVENT_KEY$4}${DATA_API_KEY$2}`;
+const EVENT_HIDE$4 = <code>hide${EVENT_KEY$4}<code>;
+const EVENT_HIDE_PREVENTED$1 = <code>hidePrevented${EVENT_KEY$4}<code>;
+const EVENT_HIDDEN$4 = <code>hidden${EVENT_KEY$4}<code>;
+const EVENT_SHOW$4 = <code>show${EVENT_KEY$4}<code>;
+const EVENT_SHOWN$4 = <code>shown${EVENT_KEY$4}<code>;
+const EVENT_RESIZE$1 = <code>resize${EVENT_KEY$4}<code>;
+const EVENT_CLICK_DISMISS = <code>click.dismiss${EVENT_KEY$4}<code>;
+const EVENT_MOUSEDOWN_DISMISS = <code>mousedown.dismiss${EVENT_KEY$4}<code>;
+const EVENT_KEYDOWN_DISMISS$1 = <code>keydown.dismiss${EVENT_KEY$4}<code>;
+const EVENT_CLICK_DATA_API$2 = <code>click${EVENT_KEY$4}${DATA_API_KEY$2}<code>;
 const CLASS_NAME_OPEN = 'modal-open';
 const CLASS_NAME_FADE$3 = 'fade';
 const CLASS_NAME_SHOW$4 = 'show';
@@ -3073,12 +3073,12 @@ class Modal extends BaseComponent {
 
     if (isBodyOverflowing && !isModalOverflowing) {
       const property = isRTL() ? 'paddingLeft' : 'paddingRight';
-      this._element.style[property] = `${scrollbarWidth}px`;
+      this._element.style[property] = <code>${scrollbarWidth}px<code>;
     }
 
     if (!isBodyOverflowing && isModalOverflowing) {
       const property = isRTL() ? 'paddingRight' : 'paddingLeft';
-      this._element.style[property] = `${scrollbarWidth}px`;
+      this._element.style[property] = <code>${scrollbarWidth}px<code>;
     }
   }
 
@@ -3097,7 +3097,7 @@ class Modal extends BaseComponent {
       }
 
       if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`);
+        throw new TypeError(<code>No method named "${config}"<code>);
       }
 
       data[config](relatedTarget);
@@ -3158,23 +3158,23 @@ defineJQueryPlugin(Modal);
 
 const NAME$6 = 'offcanvas';
 const DATA_KEY$3 = 'bs.offcanvas';
-const EVENT_KEY$3 = `.${DATA_KEY$3}`;
+const EVENT_KEY$3 = <code>.${DATA_KEY$3}<code>;
 const DATA_API_KEY$1 = '.data-api';
-const EVENT_LOAD_DATA_API$2 = `load${EVENT_KEY$3}${DATA_API_KEY$1}`;
+const EVENT_LOAD_DATA_API$2 = <code>load${EVENT_KEY$3}${DATA_API_KEY$1}<code>;
 const ESCAPE_KEY = 'Escape';
 const CLASS_NAME_SHOW$3 = 'show';
 const CLASS_NAME_SHOWING$1 = 'showing';
 const CLASS_NAME_HIDING = 'hiding';
 const CLASS_NAME_BACKDROP = 'offcanvas-backdrop';
 const OPEN_SELECTOR = '.offcanvas.show';
-const EVENT_SHOW$3 = `show${EVENT_KEY$3}`;
-const EVENT_SHOWN$3 = `shown${EVENT_KEY$3}`;
-const EVENT_HIDE$3 = `hide${EVENT_KEY$3}`;
-const EVENT_HIDE_PREVENTED = `hidePrevented${EVENT_KEY$3}`;
-const EVENT_HIDDEN$3 = `hidden${EVENT_KEY$3}`;
-const EVENT_RESIZE = `resize${EVENT_KEY$3}`;
-const EVENT_CLICK_DATA_API$1 = `click${EVENT_KEY$3}${DATA_API_KEY$1}`;
-const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY$3}`;
+const EVENT_SHOW$3 = <code>show${EVENT_KEY$3}<code>;
+const EVENT_SHOWN$3 = <code>shown${EVENT_KEY$3}<code>;
+const EVENT_HIDE$3 = <code>hide${EVENT_KEY$3}<code>;
+const EVENT_HIDE_PREVENTED = <code>hidePrevented${EVENT_KEY$3}<code>;
+const EVENT_HIDDEN$3 = <code>hidden${EVENT_KEY$3}<code>;
+const EVENT_RESIZE = <code>resize${EVENT_KEY$3}<code>;
+const EVENT_CLICK_DATA_API$1 = <code>click${EVENT_KEY$3}${DATA_API_KEY$1}<code>;
+const EVENT_KEYDOWN_DISMISS = <code>keydown.dismiss${EVENT_KEY$3}<code>;
 const SELECTOR_DATA_TOGGLE$1 = '[data-bs-toggle="offcanvas"]';
 const Default$5 = {
   backdrop: true,
@@ -3361,7 +3361,7 @@ class Offcanvas extends BaseComponent {
       }
 
       if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`);
+        throw new TypeError(<code>No method named "${config}"<code>);
       }
 
       data[config](this);
@@ -3699,7 +3699,7 @@ const CLASS_NAME_FADE$2 = 'fade';
 const CLASS_NAME_MODAL = 'modal';
 const CLASS_NAME_SHOW$2 = 'show';
 const SELECTOR_TOOLTIP_INNER = '.tooltip-inner';
-const SELECTOR_MODAL = `.${CLASS_NAME_MODAL}`;
+const SELECTOR_MODAL = <code>.${CLASS_NAME_MODAL}<code>;
 const EVENT_MODAL_HIDE = 'hide.bs.modal';
 const TRIGGER_HOVER = 'hover';
 const TRIGGER_FOCUS = 'focus';
@@ -3998,7 +3998,7 @@ class Tooltip extends BaseComponent {
 
     tip.classList.remove(CLASS_NAME_FADE$2, CLASS_NAME_SHOW$2); // todo: on v6 the following can be achieved with CSS only
 
-    tip.classList.add(`bs-${this.constructor.NAME}-auto`);
+    tip.classList.add(<code>bs-${this.constructor.NAME}-auto<code>);
     const tipId = getUID(this.constructor.NAME).toString();
     tip.setAttribute('id', tipId);
 
@@ -4024,7 +4024,7 @@ class Tooltip extends BaseComponent {
       this._templateFactory.changeContent(content);
     } else {
       this._templateFactory = new TemplateFactory({ ...this._config,
-        // the `content` var has to be after `this._config`
+        // the <code>content<code> var has to be after <code>this._config<code>
         // to override config.content in case of popover
         content,
         extraClass: this._resolvePossibleFunction(this._config.customClass)
@@ -4104,7 +4104,7 @@ class Tooltip extends BaseComponent {
       }, {
         name: 'arrow',
         options: {
-          element: `.${this.constructor.NAME}-arrow`
+          element: <code>.${this.constructor.NAME}-arrow<code>
         }
       }, {
         name: 'preSetPlacement',
@@ -4270,7 +4270,7 @@ class Tooltip extends BaseComponent {
       }
     } // In the future can be replaced with:
     // const keysWithDifferentValues = Object.entries(this._config).filter(entry => this.constructor.Default[entry[0]] !== this._config[entry[0]])
-    // `Object.fromEntries(keysWithDifferentValues)`
+    // <code>Object.fromEntries(keysWithDifferentValues)<code>
 
 
     return config;
@@ -4294,7 +4294,7 @@ class Tooltip extends BaseComponent {
       }
 
       if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`);
+        throw new TypeError(<code>No method named "${config}"<code>);
       }
 
       data[config]();
@@ -4377,7 +4377,7 @@ class Popover extends Tooltip {
       }
 
       if (typeof data[config] === 'undefined') {
-        throw new TypeError(`No method named "${config}"`);
+        throw new TypeError(<code>No method named "${config}"<code>);
       }
 
       data[config]();
@@ -4404,11 +4404,11 @@ defineJQueryPlugin(Popover);
 
 const NAME$2 = 'scrollspy';
 const DATA_KEY$2 = 'bs.scrollspy';
-const EVENT_KEY$2 = `.${DATA_KEY$2}`;
+const EVENT_KEY$2 = <code>.${DATA_KEY$2}<code>;
 const DATA_API_KEY = '.data-api';
-const EVENT_ACTIVATE = `activate${EVENT_KEY$2}`;
-const EVENT_CLICK = `click${EVENT_KEY$2}`;
-const EVENT_LOAD_DATA_API$1 = `load${EVENT_KEY$2}${DATA_API_KEY}`;
+const EVENT_ACTIVATE = <code>activate${EVENT_KEY$2}<code>;
+const EVENT_CLICK = <code>click${EVENT_KEY$2}<code>;
+const EVENT_LOAD_DATA_API$1 = <code>load${EVENT_KEY$2}${DATA_API_KEY}<code>;
 const CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item';
 const CLASS_NAME_ACTIVE$1 = 'active';
 const SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
@@ -4417,7 +4417,7 @@ const SELECTOR_NAV_LIST_GROUP = '.nav, .list-group';
 const SELECTOR_NAV_LINKS = '.nav-link';
 const SELECTOR_NAV_ITEMS = '.nav-item';
 const SELECTOR_LIST_ITEMS = '.list-group-item';
-const SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_NAV_ITEMS} > ${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`;
+const SELECTOR_LINK_ITEMS = <code>${SELECTOR_NAV_LINKS}, ${SELECTOR_NAV_ITEMS} > ${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}<code>;
 const SELECTOR_DROPDOWN = '.dropdown';
 const SELECTOR_DROPDOWN_TOGGLE$1 = '.dropdown-toggle';
 const Default$1 = {
@@ -4497,7 +4497,7 @@ class ScrollSpy extends BaseComponent {
     // TODO: on v6 target should be given explicitly & remove the {target: 'ss-target'} case
     config.target = getElement(config.target) || document.body; // TODO: v6 Only for backwards compatibility reasons. Use rootMargin only
 
-    config.rootMargin = config.offset ? `${config.offset}px 0px -30%` : config.rootMargin;
+    config.rootMargin = config.offset ? <code>${config.offset}px 0px -30%<code> : config.rootMargin;
 
     if (typeof config.threshold === 'string') {
       config.threshold = config.threshold.split(',').map(value => Number.parseFloat(value));
@@ -4527,7 +4527,7 @@ class ScrollSpy extends BaseComponent {
             behavior: 'smooth'
           });
           return;
-        } // Chrome 60 doesn't support `scrollTo`
+        } // Chrome 60 doesn't support <code>scrollTo<code>
 
 
         root.scrollTop = height;
@@ -4546,7 +4546,7 @@ class ScrollSpy extends BaseComponent {
 
 
   _observerCallback(entries) {
-    const targetElement = entry => this._targetLinks.get(`#${entry.target.id}`);
+    const targetElement = entry => this._targetLinks.get(<code>#${entry.target.id}<code>);
 
     const activate = entry => {
       this._previousScrollData.visibleEntryTop = entry.target.offsetTop;
@@ -4642,7 +4642,7 @@ class ScrollSpy extends BaseComponent {
 
   _clearActiveClass(parent) {
     parent.classList.remove(CLASS_NAME_ACTIVE$1);
-    const activeNodes = SelectorEngine.find(`${SELECTOR_TARGET_LINKS}.${CLASS_NAME_ACTIVE$1}`, parent);
+    const activeNodes = SelectorEngine.find(<code>${SELECTOR_TARGET_LINKS}.${CLASS_NAME_ACTIVE$1}<code>, parent);
 
     for (const node of activeNodes) {
       node.classList.remove(CLASS_NAME_ACTIVE$1);
@@ -4659,7 +4659,7 @@ class ScrollSpy extends BaseComponent {
       }
 
       if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`);
+        throw new TypeError(<code>No method named "${config}"<code>);
       }
 
       data[config]();
@@ -4695,14 +4695,14 @@ defineJQueryPlugin(ScrollSpy);
 
 const NAME$1 = 'tab';
 const DATA_KEY$1 = 'bs.tab';
-const EVENT_KEY$1 = `.${DATA_KEY$1}`;
-const EVENT_HIDE$1 = `hide${EVENT_KEY$1}`;
-const EVENT_HIDDEN$1 = `hidden${EVENT_KEY$1}`;
-const EVENT_SHOW$1 = `show${EVENT_KEY$1}`;
-const EVENT_SHOWN$1 = `shown${EVENT_KEY$1}`;
-const EVENT_CLICK_DATA_API = `click${EVENT_KEY$1}`;
-const EVENT_KEYDOWN = `keydown${EVENT_KEY$1}`;
-const EVENT_LOAD_DATA_API = `load${EVENT_KEY$1}`;
+const EVENT_KEY$1 = <code>.${DATA_KEY$1}<code>;
+const EVENT_HIDE$1 = <code>hide${EVENT_KEY$1}<code>;
+const EVENT_HIDDEN$1 = <code>hidden${EVENT_KEY$1}<code>;
+const EVENT_SHOW$1 = <code>show${EVENT_KEY$1}<code>;
+const EVENT_SHOWN$1 = <code>shown${EVENT_KEY$1}<code>;
+const EVENT_CLICK_DATA_API = <code>click${EVENT_KEY$1}<code>;
+const EVENT_KEYDOWN = <code>keydown${EVENT_KEY$1}<code>;
+const EVENT_LOAD_DATA_API = <code>load${EVENT_KEY$1}<code>;
 const ARROW_LEFT_KEY = 'ArrowLeft';
 const ARROW_RIGHT_KEY = 'ArrowRight';
 const ARROW_UP_KEY = 'ArrowUp';
@@ -4717,11 +4717,11 @@ const SELECTOR_DROPDOWN_ITEM = '.dropdown-item';
 const NOT_SELECTOR_DROPDOWN_TOGGLE = ':not(.dropdown-toggle)';
 const SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]';
 const SELECTOR_OUTER = '.nav-item, .list-group-item';
-const SELECTOR_INNER = `.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-item${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}`;
-const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]'; // todo:v6: could be only `tab`
+const SELECTOR_INNER = <code>.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-item${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}<code>;
+const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]'; // todo:v6: could be only <code>tab<code>
 
-const SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`;
-const SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`;
+const SELECTOR_INNER_ELEM = <code>${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}<code>;
+const SELECTOR_DATA_TOGGLE_ACTIVE = <code>.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]<code>;
 /**
  * Class definition
  */
@@ -4733,7 +4733,7 @@ class Tab extends BaseComponent {
 
     if (!this._parent) {
       return; // todo: should Throw exception on v6
-      // throw new TypeError(`${element.outerHTML} has not a valid parent ${SELECTOR_INNER_ELEM}`)
+      // throw new TypeError(<code>${element.outerHTML} has not a valid parent ${SELECTOR_INNER_ELEM}<code>)
     } // Set up initial aria attributes
 
 
@@ -4902,7 +4902,7 @@ class Tab extends BaseComponent {
     this._setAttributeIfNotExists(target, 'role', 'tabpanel');
 
     if (child.id) {
-      this._setAttributeIfNotExists(target, 'aria-labelledby', `#${child.id}`);
+      this._setAttributeIfNotExists(target, 'aria-labelledby', <code>#${child.id}<code>);
     }
   }
 
@@ -4957,7 +4957,7 @@ class Tab extends BaseComponent {
       }
 
       if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
-        throw new TypeError(`No method named "${config}"`);
+        throw new TypeError(<code>No method named "${config}"<code>);
       }
 
       data[config]();
@@ -5008,15 +5008,15 @@ defineJQueryPlugin(Tab);
 
 const NAME = 'toast';
 const DATA_KEY = 'bs.toast';
-const EVENT_KEY = `.${DATA_KEY}`;
-const EVENT_MOUSEOVER = `mouseover${EVENT_KEY}`;
-const EVENT_MOUSEOUT = `mouseout${EVENT_KEY}`;
-const EVENT_FOCUSIN = `focusin${EVENT_KEY}`;
-const EVENT_FOCUSOUT = `focusout${EVENT_KEY}`;
-const EVENT_HIDE = `hide${EVENT_KEY}`;
-const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
-const EVENT_SHOW = `show${EVENT_KEY}`;
-const EVENT_SHOWN = `shown${EVENT_KEY}`;
+const EVENT_KEY = <code>.${DATA_KEY}<code>;
+const EVENT_MOUSEOVER = <code>mouseover${EVENT_KEY}<code>;
+const EVENT_MOUSEOUT = <code>mouseout${EVENT_KEY}<code>;
+const EVENT_FOCUSIN = <code>focusin${EVENT_KEY}<code>;
+const EVENT_FOCUSOUT = <code>focusout${EVENT_KEY}<code>;
+const EVENT_HIDE = <code>hide${EVENT_KEY}<code>;
+const EVENT_HIDDEN = <code>hidden${EVENT_KEY}<code>;
+const EVENT_SHOW = <code>show${EVENT_KEY}<code>;
+const EVENT_SHOWN = <code>shown${EVENT_KEY}<code>;
 const CLASS_NAME_FADE = 'fade';
 const CLASS_NAME_HIDE = 'hide'; // @deprecated - kept here only for backwards compatibility
 
@@ -5192,7 +5192,7 @@ class Toast extends BaseComponent {
 
       if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
-          throw new TypeError(`No method named "${config}"`);
+          throw new TypeError(<code>No method named "${config}"<code>);
         }
 
         data[config](this);
