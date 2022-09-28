@@ -1,5 +1,7 @@
 # Trabalho Bimestral
 
+Saudações a todos.
+
 # Passos
 1. Renomear seu arquivo `index.html` para `lei_n.html`, onde `n` é o numero do computador (Lei)  
 2. Fazer um `fork` do repositório `X`  em sua conta  
