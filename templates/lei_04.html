@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Cadastro</title>
+</head>
+<body class="bg-dark">
+    <div class="container mt-4">
+        <div class ="row align-items-center">
+            <div class="col-md-10 mx-auto col-lg-5">
+                <form class="p-4 p-md-5 border rounded-4 bg-secondary bg-opacity-25 text-white" action="">
+                    <h3 class="text-white mb-5">CADASTRE-SE</h3>
+                    <div class="mb-3"><!--Primeiro Nome-->
+                        <label for="inputPNome" class="form-label">Primeiro Nome</label>
+                        <input type="text" class="form-control" placeholder="Insira seu primeiro nome aqui" id="inputPNome" >
+                    </div>
+                    <div class="mb-3"><!--Segundo Nome-->
+                        <label for="inputSNome" class="form-label">Segundo Nome</label>
+                        <input type="text" class="form-control" placeholder="Insira seu segundo nome aqui" id="inputSNome" >
+                    </div>
+                    <div id="formsex" class="mb-3 text-white"><!--Sexo-->
+                        <label for="formsex">Qual seu sexo?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioSexo" id="flexRadioMasculino">
+                            <label class="form-check-label" for="flexRadioMasculino">Masculino</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioSexo" id="flexRadioFeminino" checked>
+                            <label class="form-check-label" for="flexRadioFeminino">Feminino</label>
+                          </div>
+                    </div>
+                    <div id="RGeCPF" class="row g-3 mb-3"><!--RG E CPF-->
+                        <div id="cpf" class="col">
+                            <label for="cpf">CPF</label>
+                            <input type="text" class="form-control" placeholder="Insira seu CPF" aria-label="First name">
+                        </div>
+                        <div id="rg" class="col">
+                            <label for="rg">CPF ou Passaporte</label>
+                            <input type="text" class="form-control" placeholder="Insira seu RG/Passaporte" aria-label="Last name">
+                        </div>
+                    </div>
+                    <div class="mb-3"><!--Email-->
+                        <label for="exampleInputEmail1" class="form-label">Endereço de Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Insira seu endereço de e-mail">
+                        <div id="emailHelp" class="form-text">Nunca compartilharemos seu e-mail com mais ninguém.</div>
+                    </div>
+                    <div id="senha" class="row g-3 mb-3"><!--Senha-->
+                        <div id="senha" class="col">
+                            <label for="senha">Senha</label>
+                            <input type="password" class="form-control" placeholder="Insira sua senha" aria-label="Senha">
+                        </div>
+                        <div id="senha1" class="col">
+                            <label for="rg">Repetir Senha</label>
+                            <input type="password" class="form-control" placeholder="Repita sua Senha" aria-label="Senha1">
+                        </div>
+                        <div id="emailHelp" class="form-text">Nunca compartilhe sua senha.</div>
+                    </div>
+                    <div class="mb-3"><!--Telefone-->
+                        <label for="inputPTelefone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" placeholder="Insira seu Telefone com o DD" id="inputPTelefone">
+                    </div>
+                    <div class="form-check mb-3"><!--Concordo com os termos-->
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">Eu concordo com os termos.</label>
+                      </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-success" type="button">Concluído</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+</body>
+</html>
