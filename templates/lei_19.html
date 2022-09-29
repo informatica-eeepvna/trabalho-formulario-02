@@ -2,64 +2,103 @@
 <html lang="en">
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="lei.19.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário</title>
 
 </head>
-<body class="bg-dark">
-    <div class="container bg-light">
-        <h1>Cadastro</h1>
-        <br>
+<body>
+  <!-- LOGO -->
+  <img id="logo" src="Z-removebg-preview.png" alt="Logo" srcset="">
+  <!-------------------->
+
+    <div class="container">
+        <h1 class="text-center text-light">Cadastro</h1>
+
         <!-- NOME -->
         <div class="row">
         <div class="col">
-            <input type="text" class="form-control" placeholder="Nome" aria-label="Nome">
+          <label class="fw-bold" for="inputText">Nome</label>
+            <input type="text" class="form-control" aria-label="Nome">
           </div>
           <!------------------------------>
 
       <!-- SOBRENOME -->
       <div class="mb-3 col">
-        <input type="text" class="form-control" placeholder="Sobrenome" aria-label="Sobrenome">
+        <label class="fw-bold" for="inputText">Sobrenome</label>
+        <input type="text" class="form-control" aria-label="Sobrenome">
       </div>
+        </div>
       <!------------------------------>
-      <br>
+
+      <!-- EMAIL -->
+    <div class="mb-3">
+      <label class="fw-bold" for="exampleFormControlInput1" class="form-label">Email</label>
+      <input type="email" class="form-control" id="exampleFormControlInput1">
+    </div>
+    <!---------------------->
+
       <!-- SEXO -->
-      Sexo
       <div class="row">
+        <label class="fw-bold" for="">Sexo</label>
       <div class="form-check col">
         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
         <label class="form-check-label" for="flexRadioDefault1">Masculino</label>
       </div>
-      <div class="form-check col-11">
+      <div class="form-check col-9">
         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
         <label class="form-check-label" for="flexRadioDefault2">Feminino</label>
+      </div>
+      <div class="form-check col">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+        <label class="form-check-label" for="flexRadioDefault2">Outro</label>
       </div>
       </div>
       <!----------------->
 
-    <!------------------------------>
-    
-    <!-- EMAIL -->
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Email</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
-      </div>
-      </div>
-    <!------------------------------>
-    <!-- CPF,RG -->
+    <!-- CPF -->
     <div class="row">
       <div class="col">
-        <label for="">CPF</label>
-        <input type="number" class="form-control" placeholder="CPF" aria-label="First name">
+        <label class="fw-bold" for="">CPF</label>
+        <input type="number" class="form-control" placeholder="000.000.000-00" aria-label="First name">
       </div>
+      <!----------------------->
+
+      <!-- RG -->
       <div class="col">
-        <label for="">RG</label>
-        <input type="number" class="form-control" placeholder="RG" aria-label="Last name">
+        <label class="fw-bold" for="">RG</label>
+        <input type="number" class="form-control" placeholder="00.000.000-0" aria-label="Last name">
       </div>
     </div>
     <!------------------------------>
+    <br>
+    <!-- TELEFONE -->
+    <div class="col">
+      <label class="fw-bold" for="">Celular</label>
+      <input type="number" class="form-control" placeholder="(00) 0000-0000" aria-label="First name">
+    </div>
+    <!-------------------------------->
+    <!-- SENHA -->
+    <div class="row">
+    <div class="col">
+    <label class="fw-bold" for="inputPassword" class="form-label">Senha</label>
+      <input type="password" class="form-control" id="inputPassword">
+    </div>
+    <div class="col">
+      <label class="fw-bold" for="inputPassword" class="form-label">Repita senha</label>
+      <input type="password" class="form-control" id="inputPassword">
+    </div>
+    </div>
+    <!-------------------------------->
+    <br>
+    <!-- BOTÃO -->
+    <div class="d-grid gab-2 col-4 mx-auto">
+      <button type="button" class="btn btn-primary btn-sm">Confirmar</button>
+    </div>
+    <!------------------------------->
+    <br>
     </div>
 </body>
 </html>
