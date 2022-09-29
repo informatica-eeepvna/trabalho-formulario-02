@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Cadastro</title>
+</head>
+<body class="body">
+    <style>
+        .body{
+          background-color: #0496d3;
+          
+          
+        }
+        .container{
+        max-width: 500px;
+        height: 520px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        margin-top: 50PX;
+        
+        }
+        .h1{
+          
+            justify-content: center;
+            color: #fff;
+        
+        }
+        .col-6{
+        padding-top: 20px;
+        max-width: 200px;
+        margin-left: 20px;
+      
+        }
+        .sexo{
+          color: #fff;
+          margin-left: 25px;
+          
+        }
+        .circulo{
+        cursor: pointer;
+        }
+        .h5{
+          color: #fff;
+        }
+        .btn{
+          max-width: 80px;
+          transition: filter 0.5s;
+          margin-top: 5px;
+          
+        }
+        .btn:hover{
+          filter: brightness(0.8);
+        }
+        
+        .check{
+        display: flex;
+        margin-top: 5px;
+        padding-top: 15px;
+        padding-right: 5px;
+
+}
+        .term{
+          color:#fff;
+          margin-left: 5px;
+          
+
+}
+    </style>
+    <div class="container">
+        <center><h1 class="h1">Cadastro Formulário</Form></h1></center>
+    <div class="row">
+        <div class="col-6">
+          <input type="text" class="form-control" placeholder="Primeiro Nome" aria-label="Primeiro Nome">
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control" placeholder="Sobrenome" aria-label="Sobrenome">
+        </div>
+        <div class="row">
+            <div class="col-6">
+              <input type="text" class="form-control" placeholder="CPF" aria-label="Primeiro Nome">
+            </div>
+            <div class="col-6">
+              <input type="text" class="form-control" placeholder="RG" aria-label="Sobrenome">
+            </div>
+            <div class="row">
+              
+    
+                <div class="sexo">
+                  <br>
+                  <h5 class="h5">Sexo</h5>
+                  <div class="circulo">
+                  <label>
+                    <input type="radio" name="feminino" value="feminino"> Feminino</input>
+                  </label>
+                  <label>
+                    <input type="radio" name="masculino" value="masculino" required> Masculino</input>
+                  </label>
+                  <label>
+                    <input type="radio" name="outro" value="outro"> Outro </input>
+                  </label>
+                </div>
+                </div>
+
+                <div class="part02">
+                  <div class="row">
+                  <div class="col-6">
+                    <input type="email" class="form-control" placeholder="Email" aria-label="Sobrenome">
+                  </div>
+                  <div class="col-6">
+                    <input type="text" class="form-control" placeholder="Celular com DDD" aria-label="Sobrenome">
+                  </div></div>
+                  <div class="row">
+                  <div class="col-6">
+                    <input type="password" class="form-control" placeholder="Senha" aria-label="Sobrenome">
+                  </div>
+                  <div class="col-6">
+                    <input type="password" class="form-control" placeholder="Repita a senha" aria-label="Sobrenome">
+                  </div></div>
+                </div><br>
+                
+                <div class="check">
+                <input type="checkbox" value="checkbox">
+                <p class="term">Concordo com os termos de serviços e privacidade</p>
+              </div>
+                <div class="btn">
+                <button type="button" class="btn btn-light">Enviar</button></div>
+      </div>
+    </div>
+    </div>
+    </div>
+    
+</body>
+</html>
