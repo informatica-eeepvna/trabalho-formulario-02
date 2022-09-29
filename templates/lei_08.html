@@ -9,8 +9,13 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <head>
 
- <div class="p-3 mb-2 bg-info text-dark">
-  <p class="h1">Formulário de Cadastro</p>
+  <div class="container">
+  <div class="text-bg-primary p-3">
+    <fieldset class="row-7 justify-content-center">
+       <p class="h1">Formulário de Cadastro</p>
+  </fieldset>
+</div>
+</div>
   
   
 
@@ -51,7 +56,7 @@
               Masculino
             </label>
         <br>
-        
+         
         <div class="row g-3">
           <div class="col">
             <label for="nome"><strong>CPF</strong></label>
@@ -62,9 +67,6 @@
             <input type="text" class="form-control" placeholder="RG" aria-label="Last name">
           </div>
         </div>
-
-
-         </form>
 
           </div>
 
@@ -79,8 +81,20 @@
          
           
         </div>
+
+        <div class="row g-3">
+          <div class="col">
+            <label for="nome"><strong>Senha</strong></label>
+            <input type="text" class="form-control" placeholder="Senha" aria-label="First name">
+          </div>
+          <div class="col">
+            <label for="nome"><strong>Confirme a senha</strong></label>
+            <input type="text" class="form-control" placeholder="Senha" aria-label="Last name">
+          </div>
+        </div>
+
         <div class="text-left">
-          <button type="button" class="btn btn-outline-info">Cadastrar </button>
+          <button type="button" onclick="alert('Cadastrado')" class="btn btn-outline-info">Cadastrar </button>
         </div>
 
   
