@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
 <!-- cabeçalho-->
-      <div class="navbar navbar-dark bg-success shadow-sm">
+      <div class="navbar navbar-dark bg-warning shadow-sm">
         <div class="container">
           <a href="#" class="navbar-brand d-flex align-items-center">
             <strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Formulário de cadastro</font></font></strong>
@@ -29,37 +29,33 @@
 <!-- nome -->
 <div class="mb-3">
   
-    <label for="exampleInputEmail1" class="form-label">Primeiro nome</label>
-    <input type="name" class="form-control" placeholder="Primeiro nome" id="exampleInputname1" aria-describedby="nameHelp">
-    <div id="nameHelp" </div>
+  <div class="row">
+    <div class="col">
+      Nome
+      <input type="text"  class="form-control" placeholder="Digite o seu nome" aria-label="nome">
+    </div>
+    <div class="col">
+      Sobrenome
+      <input type="text" class="form-control" placeholder="Digite o seu sobrenome" aria-label="sobrenome">
+    </div>
   </div>
-
   <br>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Seu sobrenome</label>
-    <input type="name2" class="form-control"placeholder="Sobrenome" id="exampleInputname2" aria-describedby="nameHelp2">
-    <div id="nameHelp2" </div>
-  </div>
 
   <!-- sexo -->
 <br>
   Sexo
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-    <label class="form-check-label" for="flexRadioDefault1">
-      Feminino
-    </label>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+    <label class="form-check-label" for="inlineCheckbox1">Feminino</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-    <label class="form-check-label" for="flexRadioDefault1">
-      Masculino
-    </label>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+    <label class="form-check-label" for="inlineCheckbox2">Masculino</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-    <label class="form-check-label" for="flexRadioDefault1">
-      Prefiro não informar
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+    <label class="form-check-label" for="inlineCheckbox2">Prefiro não informar</label>
+  </div>
     </label>
   </div>
 <br>
@@ -78,22 +74,27 @@
  
 <!-- email-->
 
-<label for="exampleInputEmail1" class="form-label">E-mail</label>
-<input type="name" class="form-control" placeholder="Seu@email.com" id="exampleInputname1" aria-describedby="emailHelp">
-<div id="emailHelp" </div>
-</div>
-<br>
+<div class="row">
+  <div class="col">
+    E-mail
+    <input type="text"  class="form-control" placeholder="user@email.com" aria-label="email">
+  </div>
+  <div class="col">
+
 <!-- telefone-->
 <div class="row">
   <div class="col">
 Celular com DDD
-    <input type="text" class="form-control" placeholder="(00) 0000-0000" aria-label="Telefone">
+
+    <input type="text" class="form-control" placeholder="(00) 0000-0000" aria-label="celular">
   </div>
+</div>
 <br>
-<br>
+
+   
 <!-- senha -->
 
-<div class="row">
+<div class="row ">
   <div class="col">
     Senha
     <input type="text"  class="form-control" placeholder="Insira sua senha" aria-label="CPF">
@@ -109,7 +110,7 @@ Celular com DDD
 <center>
   <br>
 <div class="col-12">
-  <button type="submit" class="btn btn-success">Cadastrar</button>
+  <button type="submit" class="btn btn-warning">Cadastrar</button>
 </div>
 </center>
 </div>
